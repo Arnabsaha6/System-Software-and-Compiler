@@ -1,0 +1,25 @@
+x=int(input('Enter no  of States: '))
+st=[input('Enter the States: ')for i in range(0,x)]
+y=int(input('Enter no  of alphabets/tansitions: '))
+key=[input('Enter Alphabets/Transitions: ') for i in range(0,y)]
+last=input('Final State: ').split()
+k=[0 for i in range(len(st))]
+for i in range(len(st)):
+    k[i]=[0 for j in range(len(key))]
+    for j in range(len(key)):
+        k[i][j]=input('Transition of '+st[i]+' with input state(alphabet)  '+key[j]+': ')
+def spot(q,w):
+    list.append(k[st.index(q)][key.index(w)])
+    return k[st.index(q)][key.index(w)]
+while True:
+    list=[]
+    strt=st[0]
+    w=input('Enter the string to check :')
+    for i in w:
+        strt=spot(strt,i)
+    if list[-1] in last:
+        print('String is Accepted by Grammer ( '+st[0]+'-->'+'-->'.join(list)+')')
+        break
+    else:
+        print('String is Not Accepted by This Grammar...'+st[0]+'-->'+'-->'.join(list))
+        break
