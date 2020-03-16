@@ -1,0 +1,110 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan 20 15:15:20 2020
+
+@author: URK17CS076
+"""
+
+lines = []
+
+while 1:
+        line = input()
+        
+        if line:
+        
+            lines.append(line)
+        
+        else:
+            
+            break
+             
+        
+print(lines)
+inp=[x.split() for x in lines]
+
+print(inp)
+
+keyword = ['int','main','end','if','else','for','String','float','double']
+
+punctuation=[';',',','{','}','[',']','(',')']
+
+operator=['+','-','/','*','=','#','<','>','==']
+
+const = []
+tokens=[]
+identifiers=[]          
+
+
+for x in inp:
+    
+    for i in x:
+        
+        if i in keyword:
+                print ("<keyword "+i+" >")
+                tokens.append(i)
+        
+        elif i in punctuation:
+                print ("<punctuation "+i+">")
+                tokens.append(i)
+        
+        elif i in operator:
+                print("<operator "+i+">")
+                tokens.append(i)
+        
+        elif i[0] == "'" and i[-1]=="'":
+            str = i[1:-1]
+            const.append(str)
+        
+        else:
+            print ("<identifier "+i+" >")
+            identifiers.append(i)
+            tokens.append(i)
+        
+for i in const:
+    print ('<constant '+i+' >')
+    
+print(tokens)
+print(identifiers)
+
+s={
+   'id':[],
+   'dtype':[],
+   'rtype':[],
+   'ival':[],
+   'nop':[],
+   'ptype':[]
+   }
+
+def symbol_gen(t):
+    for x in range(len(t)):
+        if t[x]=='=':
+            s['id'].append(t[x-1])
+            s['dtype'].append(t[x-2])
+            s['rtype'].append(' ')
+            s['ival'].append(t[x+1])
+            s['nop'].append(' ')
+            s['ptype'].append(' ')
+
+        if t[x]=='(':
+            s['id'].append(t[x-1])
+            s['dtype'].append(' ')
+            s['rtype'].append(t[x-2])
+            s['ival'].append(' ')
+            args=[]
+            c=0
+            for i in range(x,len(t)):
+                               
+                if t[i] in identifiers:
+                    c+=1
+                    args.append(t[i-1])
+                if t[i]==')':
+                    s['ptype'].append(args)
+                    break
+                    
+            s['nop'].append(c)
+
+symbol_gen(tokens)
+print(s)
+import pandas as pd
+df=pd.DataFrame(s)
+print(df)
