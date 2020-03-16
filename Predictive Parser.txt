@@ -1,0 +1,63 @@
+tab=open('input.txt','r')
+inp=[]
+while True:
+    i=tab.readline()
+    if i=='':
+        break
+    if i[-1]=='\n':
+        i=i[:-1]
+    inp.append(i.split(':'))
+tab.close()
+nont=inp[0]
+term=inp[1]
+inp.remove(nont)
+inp.remove(term)
+dic={}
+ind={}
+it=0
+for i in term[0].split():
+    if i==' ':
+        continue
+    ind[i]=it
+    it+=1
+for i in inp:
+    dic[i[0]]=i[1:]
+stack=['$',nont[0][0]]
+string=input('Enter the input string : ').split()+['$']
+while stack[-1]!='$':
+    if stack[-1] in term[0]:
+        if stack[-1]==string[0]:
+                stack.remove(stack[-1])
+                string.remove(string[0])
+                
+    else:
+
+        k=dic[stack[-1]][ind[string[0]]]
+        
+        if k!='0':
+            if k=='x':
+                
+                stack.remove(stack[-1])
+                
+            elif k in term[0]:
+                    
+                    stack.remove(stack[-1])
+                    stack.append(k)
+            else:
+                if ' ' in k:
+                        k=k.split(' ')
+                        stack.remove(stack[-1])
+                        stack.extend(k[::-1])
+                else:
+                        stack.remove(stack[-1])
+                        stack.append(k[::-1])
+        elif k=='0':
+            break
+        print('Stack: ',''.join(stack))
+
+        
+    
+if len(string)==1:
+    print('Accepted')
+else:
+    print('Not Accepted')
