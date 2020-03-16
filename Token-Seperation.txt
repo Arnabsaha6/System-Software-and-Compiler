@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+~@urk17cs076
+This is a temporary script file.
+"""
+operator={'+','-','*','/','=','<','>'}
+punctuation={',','.',';',':','{','}'}
+identifier={'a','b','c','d'}
+keyword={'if','else','for','while','do','elif','int','double','float'}
+f=open('file2.c','r')
+i=f.read()
+op=0
+ind=0
+kw=0
+pc=0
+program=i.split('\n')
+for x in program:
+    token=x.split(' ')
+    for y in token:
+        if y in operator:
+            op=op+1
+            print("< Operator:",y,">")
+        elif y in identifier:
+            ind=ind+1
+            print("< Identifier:",y,">")
+        elif y in keyword:
+            kw=kw+1
+            print("< Keyword:",y,">")
+        elif y in punctuation:
+            pc=pc+1
+            print("< Punctuation:",y,">")
+
+print("Total number of Operator is:",op)
+print("Total number of Identifier is:",ind)
+print("Total number of keyword is:",kw)
+print("Total number of Punctuation is:",pc)
